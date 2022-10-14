@@ -22,8 +22,6 @@ import Route from '@ioc:Adonis/Core/Route'
 import {
   buildSchema,
   GraphQLError,
-  GraphQLSchema,
-  ExecutionResult,
 } from 'graphql'
 
 import {
@@ -112,7 +110,7 @@ Route.get('/', async () => {
 })
 
 Route.post('/graphql', async ({request, response}) => {
-  await graphqlServer.handleRequest({
+  await graphqlServer.handleRequestAndSendResponse({
     headers: request.headers(),
     url: request.url(),
     body: request.body(),
