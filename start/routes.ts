@@ -1,32 +1,32 @@
 /*
-|--------------------------------------------------------------------------
-| Routes
-|--------------------------------------------------------------------------
-|
-| This file is dedicated for defining HTTP routes. A single file is enough
-| for majority of projects, however you can define routes in different
-| files and just make sure to import them inside this file. For example
-|
-| Define routes in following two files
-| ├── start/routes/cart.ts
-| ├── start/routes/customer.ts
-|
-| and then import them inside `start/routes.ts` as follows
-|
-| import './routes/cart'
-| import './routes/customer'
-|
-*/
+ *|--------------------------------------------------------------------------
+ *| Routes
+ *|--------------------------------------------------------------------------
+ *|
+ *| This file is dedicated for defining HTTP routes. A single file is enough
+ *| for majority of projects, however you can define routes in different
+ *| files and just make sure to import them inside this file. For example
+ *|
+ *| Define routes in following two files
+ *| ├── start/routes/cart.ts
+ *| ├── start/routes/customer.ts
+ *|
+ *| and then import them inside `start/routes.ts` as follows
+ *|
+ *| import './routes/cart'
+ *| import './routes/customer'
+ *|
+ */
 
 import Route from '@ioc:Adonis/Core/Route'
 import {
-  buildSchema,
-  GraphQLError,
+    buildSchema,
+    GraphQLError,
 } from 'graphql'
 
 import {
-  GraphQLServer,
-  JsonLogger,
+    GraphQLServer,
+    JsonLogger,
 } from '@dreamit/graphql-server'
 
 interface User {
@@ -73,58 +73,58 @@ const userSchema = buildSchema(`
 `)
 
 const userSchemaResolvers= {
-  returnError (): User {
-    throw new GraphQLError('Something went wrong!', {})
-  },
-  users (): User[] {
-    return [userOne, userTwo]
-  },
-  user (input: { id: string }): User {
-    switch (input.id) {
-      case '1': {
-        return userOne
-      }
-      case '2': {
-        return userTwo
-      }
-      default: {
-        throw new GraphQLError(`User for userid=${input.id} was not found`, {})
-      }
-    }
-  },
-  logout (): LogoutResult {
-    return {result: 'Goodbye!'}
-  },
+    returnError(): User {
+        throw new GraphQLError('Something went wrong!', {})
+    },
+    users(): User[] {
+        return [userOne, userTwo]
+    },
+    user(input: { id: string }): User {
+        switch (input.id) {
+        case '1': {
+            return userOne
+        }
+        case '2': {
+            return userTwo
+        }
+        default: {
+            throw new GraphQLError(`User for userid=${input.id} was not found`, {})
+        }
+        }
+    },
+    logout(): LogoutResult {
+        return {result: 'Goodbye!'}
+    },
 }
 
 const graphqlServer = new GraphQLServer(
-  {
-    schema: userSchema,
-    rootValue: userSchemaResolvers,
-    logger: new JsonLogger('fastifyServer', 'user-service'),
-  }
+    {
+        schema: userSchema,
+        rootValue: userSchemaResolvers,
+        logger: new JsonLogger('fastifyServer', 'user-service'),
+    }
 )
 
-Route.get('/', async () => {
-  return { hello: 'world' }
+Route.get('/', async() => {
+    return { hello: 'world' }
 })
 
-Route.post('/graphql', async ({request, response}) => {
-  await graphqlServer.handleRequestAndSendResponse({
-    headers: request.headers(),
-    url: request.url(),
-    body: request.body(),
-    method: request.method(),
-  }, {
-    setHeader: function (name, value) {
-      response.header(name, value as string)
-      return this
-    },
-    end: function (chunk) {
-      response.send(chunk)
-      return this
-    },
-    removeHeader: response.removeHeader,
-    statusCode: response.response.statusCode,
-  })
+Route.post('/graphql', async({request, response}) => {
+    await graphqlServer.handleRequest({
+        headers: request.headers(),
+        url: request.url(),
+        body: request.body(),
+        method: request.method(),
+    }, {
+        setHeader: function(name, value) {
+            response.header(name, value as string)
+            return this
+        },
+        end: function(chunk) {
+            response.send(chunk)
+            return this
+        },
+        removeHeader: response.removeHeader,
+        statusCode: response.response.statusCode,
+    })
 })
