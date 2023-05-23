@@ -72,7 +72,6 @@
             "allow": [ "graphql/**" ]
           } ],
         "import/no-unresolved": 0,
-        "deprecation/deprecation": "error",
-        "unicorn/expiring-todo-comments": "off"
+        "deprecation/deprecation": "error"
     }
 }
