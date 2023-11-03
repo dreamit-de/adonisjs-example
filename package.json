@@ -40,7 +40,7 @@
     "@adonisjs/core": "5.9.0",
     "@adonisjs/repl": "3.1.11",
     "@dreamit/graphql-server": "4.2.0",
-    "graphql": "16.6.0",
+    "graphql": "16.8.1",
     "proxy-addr": "2.0.7",
     "reflect-metadata": "0.1.13",
     "source-map-support": "0.5.21"
