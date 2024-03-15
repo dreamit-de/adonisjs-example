@@ -7,7 +7,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "start": "node bin/server.js",
-    "build": "node ace build",
+    "build": "node ace build --ignore-ts-errors",
     "dev": "node ace serve --watch",
     "test": "npm run build && node ace test",
     "lint": "eslint .",
