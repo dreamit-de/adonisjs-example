@@ -33,6 +33,7 @@ export const runnerHooks: Required<Pick<Config, 'setup' | 'teardown'>> = {
  */
 export const configureSuite: Config['configureSuite'] = (suite) => {
   if (['browser', 'functional', 'e2e'].includes(suite.name)) {
+    process.env.APP_KEY = 'huN8X0LunwRL83zG9Vmm5iZuAc7MB_Xb'
     return suite.setup(() => testUtils.httpServer().start())
   }
 }
