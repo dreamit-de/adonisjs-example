@@ -9,7 +9,7 @@
     "start": "node bin/server.js",
     "build": "node ace build",
     "dev": "node ace serve --watch",
-    "test": "node ace test",
+    "test": "npm run build && node ace test",
     "lint": "eslint .",
     "format": "prettier --write .",
     "typecheck": "tsc --noEmit",
