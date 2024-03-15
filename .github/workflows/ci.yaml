@@ -2,5 +2,5 @@ name: Install and compile express-example
 on: [push, workflow_dispatch]
 
 jobs:
-  expressexample:
+  adonisjsexample:
     uses: dreamit-de/workflows/.github/workflows/nodejs-ci.yml@main
